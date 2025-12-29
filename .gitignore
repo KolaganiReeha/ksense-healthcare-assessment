@@ -11,6 +11,7 @@
 # production
 /build
 
+temp_auto_push.bat
 # misc
 .DS_Store
 .env.local
@@ -21,3 +22,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+node_modules
+.env
+build
+.gitignore

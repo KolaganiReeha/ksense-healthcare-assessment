@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# Ksense Healthcare API Assessment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project implements the Ksense Healthcare API take-home assessment using **Create React App** and **JavaScript**.
 
-## Available Scripts
+The application:
+- Fetches paginated patient data from the provided API
+- Handles rate limiting and intermittent API failures with retry logic
+- Calculates patient risk scores based on Blood Pressure, Temperature, and Age
+- Identifies:
+  - High-risk patients (total risk score ≥ 4)
+  - Fever patients (temperature ≥ 99.6°F)
+  - Patients with data quality issues
+- Submits the computed results to the assessment API endpoint
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Tech Stack
+- React (Create React App)
+- JavaScript
+- Fetch API
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Risk Scoring Rules
 
-### `npm test`
+### Blood Pressure Risk
+- Normal (<120 / <80): 0 points
+- Elevated (120–129 / <80): 1 point
+- Stage 1 (130–139 or 80–89): 2 points
+- Stage 2 (≥140 or ≥90): 3 points
+- Invalid/Missing: 0 points
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Temperature Risk
+- Normal (≤99.5°F): 0 points
+- Low Fever (99.6–100.9°F): 1 point
+- High Fever (≥101.0°F): 2 points
+- Invalid/Missing: 0 points
 
-### `npm run build`
+### Age Risk
+- Under 40: 0 points
+- 40–65: 1 point
+- Over 65: 2 points
+- Invalid/Missing: 0 points
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Total Risk Score = BP + Temperature + Age**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Features
+- Handles pagination and API retries
+- Implements risk scoring per spec
+- Handles invalid/missing patient data
+- Submits assessment results to Ksense API
 
-### `npm run eject`
+## Setup
+1. npm install
+2. Add API key to .env
+3. npm start
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
